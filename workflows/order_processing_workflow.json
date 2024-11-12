@@ -1,0 +1,27 @@
+{
+    "Comment": "Fluxo de Processamento de Pedidos",
+    "StartAt": "CheckInventory",
+    "States": {
+      "CheckInventory": {
+        "Type": "Task",
+        "Resource": "arn:aws:lambda:REGION:ACCOUNT_ID:function:check_inventory",
+        "Next": "ProcessPayment"
+      },
+      "ProcessPayment": {
+        "Type": "Task",
+        "Resource": "arn:aws:lambda:REGION:ACCOUNT_ID:function:process_payment",
+        "Next": "UpdateOrderStatus"
+      },
+      "UpdateOrderStatus": {
+        "Type": "Task",
+        "Resource": "arn:aws:lambda:REGION:ACCOUNT_ID:function:update_order_status",
+        "Next": "NotifyCustomer"
+      },
+      "NotifyCustomer": {
+        "Type": "Task",
+        "Resource": "arn:aws:lambda:REGION:ACCOUNT_ID:function:notify_customer",
+        "End": true
+      }
+    }
+  }
+  
